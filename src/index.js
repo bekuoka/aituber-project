@@ -4,7 +4,7 @@ const { speak } = require('./voicevox');
 const { getComments } = require('./youtube');
 const { connect, triggerExpression } = require('./vtube');
 
-const VIDEO_ID = 'ここに自分のYouTube動画IDを入れる';
+const VIDEO_ID = 'lBmMa6W2OxI';
 
 let processedComments = new Set();
 let isSpeaking = false;

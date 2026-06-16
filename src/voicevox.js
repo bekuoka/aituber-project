@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const { exec } = require('child_process');
 
 async function speak(text, speakerId = 3) {
   // 音声クエリを作成
@@ -25,7 +26,6 @@ async function speak(text, speakerId = 3) {
   fs.writeFileSync(outputPath, Buffer.from(audioBuffer));
 
   // 音声を再生
-  const { exec } = require('child_process');
   exec(`afplay ${outputPath}`);
 }
 
