@@ -16,6 +16,7 @@ async function getLiveChatId(videoId) {
 
 let liveChatId = null;
 let nextPageToken = null;
+let pollingInterval = 5000; // デフォルト5秒
 
 async function getComments(videoId) {
   if (!liveChatId) {
@@ -31,10 +32,16 @@ async function getComments(videoId) {
 
   nextPageToken = response.data.nextPageToken;
 
-  return response.data.items.map(item => ({
-    author: item.authorDetails.displayName,
-    text: item.snippet.displayMessage
-  }));
+  // APIが推奨する間隔を使う
+  pollingInterval = response.data.pollingIntervalMillis || 5000;
+
+  return {
+    comments: response.data.items.map(item => ({
+      author: item.authorDetails.displayName,
+      text: item.snippet.displayMessage
+    })),
+    pollingInterval
+  };
 }
 
 module.exports = { getComments };
